@@ -37,3 +37,30 @@ button {
   cursor: pointer;
   margin-top: 1rem;
 }
+
+.hide {
+  display: none;
+}
+.battle-container {
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-block: 1rem;
+  & .player-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    & .witcher-one-name,
+    & .witcher-two-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+  }
+  & .battle-infos {
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    font-family: "Courier New", Courier, monospace;
+    padding: 0.5rem;
+  }
+}

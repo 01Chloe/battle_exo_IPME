@@ -10,15 +10,15 @@
   <body>
     <main>
       <h1>🧙‍♂️ Duel de Sorciers</h1>
-      <form>
+      <form class="form">
         <div class="input-group-row">
           <div class="input-group">
             <label for="witcherOne">Nom du sorcier 1</label>
-            <input type="text" name="witcherOne" id="witcherOne" />
+            <input type="text" name="witcherOne" id="witcherOne" required />
           </div>
           <div class="input-group">
             <label for="houseOne">Maison du sorcier 1</label>
-            <select name="houseOne" id="houseOne">
+            <select name="houseOne" id="houseOne" required>
               <option value="">--Maison du sorcier 1--</option>
               <option value="gryffondor">Gryffondor</option>
               <option value="serpentard">Serpentard</option>
@@ -30,11 +30,11 @@
         <div class="input-group-row">
           <div class="input-group">
             <label for="witcherTwo">Nom du sorcier 2</label>
-            <input type="text" name="witcherTwo" id="witcherTwo" />
+            <input type="text" name="witcherTwo" id="witcherTwo" required />
           </div>
           <div class="input-group">
             <label for="houseTwo">Maison du sorcier 2</label>
-            <select name="houseTwo" id="houseTwo">
+            <select name="houseTwo" id="houseTwo" required>
               <option value="">--Maison du sorcier 2--</option>
               <option value="gryffondor">Gryffondor</option>
               <option value="serpentard">Serpentard</option>
@@ -45,6 +45,31 @@
         </div>
         <button class="submit">Lancer le duel</button>
       </form>
+
+      <div class="battle-container hide">
+        <div class="player-container">
+          <div>
+            <p class="witcher-one-name">
+              <!-- insert witcher one name -->
+            </p>
+            <p class="witcher-one-house">
+              <!-- insert witcher one house -->
+            </p>
+          </div>
+          <div>
+            <p class="witcher-two-name">
+              <!-- insert witcher two name -->
+            </p>
+            <p class="witcher-two-house">
+              <!-- insert witcher two house -->
+            </p>
+          </div>
+        </div>
+        <h2>Historique du duel :</h2>
+        <div class="battle-infos">
+          <!-- insert battle info -->
+        </div>
+      </div>
     </main>
   </body>
 </html>
