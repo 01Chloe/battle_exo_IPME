@@ -82,9 +82,8 @@ form.addEventListener("submit", (e) => {
 
 function startBattle() {
   let perso1 = new Perso(witcherOneName.value, witcherOneHouse.value);
-  //   console.log(perso1);
   let perso2 = new Perso(witcherTwoName.value, witcherTwoHouse.value);
-  //   console.log(perso2);
+
   battleContainer.classList.remove("hide");
 
   displayWitcherOneName.innerHTML = witcherOneName.value;
@@ -97,10 +96,24 @@ function startBattle() {
     if (perso1.pv > 0 && perso2.pv > 0) {
       perso1.attack(perso2, i);
       witcherTwoLife.style.width = perso2.percentOfLife + "%";
+      if (perso2.percentOfLife >= 50) {
+        witcherTwoLife.style.backgroundColor = "#00bd13";
+      } else if (perso2.percentOfLife >= 15) {
+        witcherTwoLife.style.backgroundColor = "#ffaa0e";
+      } else {
+        witcherTwoLife.style.backgroundColor = "#dd0000";
+      }
       i++;
       if (perso2.pv > 0) {
         perso2.attack(perso1, i);
         witcherOneLife.style.width = perso1.percentOfLife + "%";
+        if (perso1.percentOfLife >= 50) {
+          witcherOneLife.style.backgroundColor = "#00bd13";
+        } else if (perso1.percentOfLife >= 15) {
+          witcherOneLife.style.backgroundColor = "#ffaa0e";
+        } else {
+          witcherOneLife.style.backgroundColor = "#dd0000";
+        }
         i++;
       }
       if (perso1.pv <= perso1.pvMax / 2 && perso1.resurectionNb === 1) {
