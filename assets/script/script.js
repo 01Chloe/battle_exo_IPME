@@ -4,10 +4,12 @@ class Perso {
   force = 10;
   name;
   house;
+  percentOfLife = 100;
 
   constructor(name, house) {
     this.name = name;
     this.house = house;
+    this.percentOfLife = this.percentOfLife;
   }
   randomForce() {
     let force = Math.floor(Math.random() * this.force + this.force / 2) + 1;
@@ -25,6 +27,8 @@ class Perso {
     let pInfo = document.createElement("p");
     pInfo.innerHTML = `Tour ${tour} : ${this.name} attaque ${perso.name} pour ${attackRandom} dégâts. Il reste ${perso.pv} PV à ${perso.name}`;
     battleInfos.insertAdjacentElement("beforeend", pInfo);
+
+    this.percentOfLife = Math.floor((this.pv * 100) / 150);
   }
 }
 
@@ -38,6 +42,8 @@ const displayWitcherTwoName = document.querySelector(".witcher-two-name");
 const displayWitcherTwoHouse = document.querySelector(".witcher-two-house");
 const battleContainer = document.querySelector(".battle-container");
 const battleInfos = document.querySelector(".battle-infos");
+const witcherOneLife = document.querySelector(".witcher-one-life");
+const witcherTwoLife = document.querySelector(".witcher-two-life");
 
 const form = document.querySelector(".form");
 form.addEventListener("submit", (e) => {
@@ -65,10 +71,12 @@ function startBattle() {
   let i = 1;
   while (perso1.pv > 0 && perso2.pv > 0) {
     perso1.attack(perso2, i);
+    witcherTwoLife.style.width = perso2.percentOfLife + "%";
     i++;
 
     if (perso2.pv > 0) {
       perso2.attack(perso1, i);
+      witcherOneLife.style.width = perso1.percentOfLife + "%";
       i++;
     }
   }
@@ -76,9 +84,11 @@ function startBattle() {
   if (perso1.pv > perso2.pv) {
     winner = perso1;
     loser = perso2;
+    witcherTwoLife.style.width = 0;
   } else {
     winner = perso2;
     loser = perso1;
+    witcherOneLife.style.width = 0;
   }
   let result = document.createElement("p");
   result.innerHTML = `💥 ${winner.name} (${winner.house}) a vaincu ${
@@ -86,3 +96,7 @@ function startBattle() {
   } (${loser.house}) en ${i - 1} tours !`;
   battleInfos.insertAdjacentElement("beforeend", result);
 }
+
+// quand l'utilisateur a moins de 50% de vie il a le droit de se regenerer
+// une fois de temps en temps la force fait 3 fois plus que le max habituel
+// à noter en vert dans l'historique

@@ -50,10 +50,28 @@ button {
     display: flex;
     justify-content: space-around;
     text-align: center;
+    gap: 1rem;
+    & div {
+      width: 100%;
+    }
     & .witcher-one-name,
     & .witcher-two-name {
       font-weight: 700;
       font-size: 1.5rem;
+    }
+    & .witcher-one-life-container,
+    & .witcher-two-life-container {
+      border: 1px solid #cdcdcd;
+      background-color: transparent;
+      border-radius: 5px;
+      width: 100%;
+      height: 30px;
+      & .witcher-one-life,
+      & .witcher-two-life {
+        width: 100%;
+        height: 100%;
+        background-color: #00bd13;
+      }
     }
   }
   & .battle-infos {
