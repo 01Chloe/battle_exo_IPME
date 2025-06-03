@@ -69,32 +69,36 @@ function startBattle() {
   displayWitcherTwoHouse.innerHTML = witcherTwoHouse.value;
 
   let i = 1;
-  while (perso1.pv > 0 && perso2.pv > 0) {
-    perso1.attack(perso2, i);
-    witcherTwoLife.style.width = perso2.percentOfLife + "%";
-    i++;
-
-    if (perso2.pv > 0) {
-      perso2.attack(perso1, i);
-      witcherOneLife.style.width = perso1.percentOfLife + "%";
+  let intervalId = setInterval(() => {
+    if (perso1.pv > 0 && perso2.pv > 0) {
+      perso1.attack(perso2, i);
+      witcherTwoLife.style.width = perso2.percentOfLife + "%";
       i++;
+      if (perso2.pv > 0) {
+        perso2.attack(perso1, i);
+        witcherOneLife.style.width = perso1.percentOfLife + "%";
+        i++;
+      }
+    } else {
+      clearInterval(intervalId);
+
+      let winner;
+      if (perso1.pv > perso2.pv) {
+        winner = perso1;
+        loser = perso2;
+        witcherTwoLife.style.width = 0;
+      } else {
+        winner = perso2;
+        loser = perso1;
+        witcherOneLife.style.width = 0;
+      }
+      let result = document.createElement("p");
+      result.innerHTML = `💥 ${winner.name} (${winner.house}) a vaincu ${
+        loser.name
+      } (${loser.house}) en ${i - 1} tours !`;
+      battleInfos.insertAdjacentElement("beforeend", result);
     }
-  }
-  let winner;
-  if (perso1.pv > perso2.pv) {
-    winner = perso1;
-    loser = perso2;
-    witcherTwoLife.style.width = 0;
-  } else {
-    winner = perso2;
-    loser = perso1;
-    witcherOneLife.style.width = 0;
-  }
-  let result = document.createElement("p");
-  result.innerHTML = `💥 ${winner.name} (${winner.house}) a vaincu ${
-    loser.name
-  } (${loser.house}) en ${i - 1} tours !`;
-  battleInfos.insertAdjacentElement("beforeend", result);
+  }, 500);
 }
 
 // quand l'utilisateur a moins de 50% de vie il a le droit de se regenerer
