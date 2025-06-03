@@ -85,6 +85,7 @@ function startBattle() {
   let perso2 = new Perso(witcherTwoName.value, witcherTwoHouse.value);
 
   battleContainer.classList.remove("hide");
+  battleInfos.innerHTML = "";
 
   displayWitcherOneName.innerHTML = witcherOneName.value;
   displayWitcherOneHouse.innerHTML = witcherOneHouse.value;
