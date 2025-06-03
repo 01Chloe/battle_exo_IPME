@@ -33,7 +33,7 @@ class Perso {
       } fait une super attaque à ${perso.name} pour ${
         attackRandom * 3
       } dégâts. Il reste ${perso.pv} PV à ${perso.name}`;
-      battleInfos.insertAdjacentElement("beforeend", superFightInfo);
+      battleInfos.insertAdjacentElement("afterbegin", superFightInfo);
     } else {
       perso.pv -= attackRandom;
       if (perso.pv < 0) {
@@ -41,7 +41,7 @@ class Perso {
       }
       let pInfo = document.createElement("p");
       pInfo.innerHTML = `Tour ${tour} : ${this.name} attaque ${perso.name} pour ${attackRandom} dégâts. Il reste ${perso.pv} PV à ${perso.name}`;
-      battleInfos.insertAdjacentElement("beforeend", pInfo);
+      battleInfos.insertAdjacentElement("afterbegin", pInfo);
     }
 
     this.percentOfLife = Math.floor((this.pv * 100) / 150);
@@ -52,7 +52,7 @@ class Perso {
     let lifeInfo = document.createElement("p");
     lifeInfo.innerHTML = `Tour ${tour} : ${this.name} a regagné toute sa vie`;
     lifeInfo.classList.add("colored-txt");
-    battleInfos.insertAdjacentElement("beforeend", lifeInfo);
+    battleInfos.insertAdjacentElement("afterbegin", lifeInfo);
   }
 }
 
@@ -143,7 +143,7 @@ function startBattle() {
       result.innerHTML = `💥 ${winner.name} (${winner.house}) a vaincu ${
         loser.name
       } (${loser.house}) en ${i - 1} tours !`;
-      battleInfos.insertAdjacentElement("beforeend", result);
+      battleInfos.insertAdjacentElement("afterbegin", result);
     }
   }, 500);
 }
