@@ -82,3 +82,7 @@ button {
     padding: 0.5rem;
   }
 }
+
+.colored-txt {
+  color: #00bd13;
+}

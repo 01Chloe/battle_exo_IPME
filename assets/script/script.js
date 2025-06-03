@@ -1,10 +1,11 @@
 class Perso {
-  pvMax = 200;
+  pvMax = 150;
   pv = 150;
   force = 10;
   name;
   house;
   percentOfLife = 100;
+  resurectionNb = 1;
 
   constructor(name, house) {
     this.name = name;
@@ -17,18 +18,41 @@ class Perso {
   }
 
   attack(perso, tour) {
+    let randomSuperFight = Math.floor(Math.random() * 10) + 1;
     let attackRandom = this.randomForce();
-    perso.pv -= attackRandom;
 
-    if (perso.pv < 0) {
-      perso.pv = 0;
+    if (randomSuperFight === 5) {
+      perso.pv -= attackRandom * 3;
+      if (perso.pv < 0) {
+        perso.pv = 0;
+      }
+      let superFightInfo = document.createElement("p");
+      superFightInfo.classList.add("colored-txt");
+      superFightInfo.innerHTML = `Tour ${tour} : ${
+        this.name
+      } fait une super attaque à ${perso.name} pour ${
+        attackRandom * 3
+      } dégâts. Il reste ${perso.pv} PV à ${perso.name}`;
+      battleInfos.insertAdjacentElement("beforeend", superFightInfo);
+    } else {
+      perso.pv -= attackRandom;
+      if (perso.pv < 0) {
+        perso.pv = 0;
+      }
+      let pInfo = document.createElement("p");
+      pInfo.innerHTML = `Tour ${tour} : ${this.name} attaque ${perso.name} pour ${attackRandom} dégâts. Il reste ${perso.pv} PV à ${perso.name}`;
+      battleInfos.insertAdjacentElement("beforeend", pInfo);
     }
 
-    let pInfo = document.createElement("p");
-    pInfo.innerHTML = `Tour ${tour} : ${this.name} attaque ${perso.name} pour ${attackRandom} dégâts. Il reste ${perso.pv} PV à ${perso.name}`;
-    battleInfos.insertAdjacentElement("beforeend", pInfo);
-
     this.percentOfLife = Math.floor((this.pv * 100) / 150);
+  }
+
+  resurection(tour) {
+    this.pv = this.pvMax;
+    let lifeInfo = document.createElement("p");
+    lifeInfo.innerHTML = `Tour ${tour} : ${this.name} a regagné toute sa vie`;
+    lifeInfo.classList.add("colored-txt");
+    battleInfos.insertAdjacentElement("beforeend", lifeInfo);
   }
 }
 
@@ -79,6 +103,16 @@ function startBattle() {
         witcherOneLife.style.width = perso1.percentOfLife + "%";
         i++;
       }
+      if (perso1.pv <= perso1.pvMax / 2 && perso1.resurectionNb === 1) {
+        perso1.resurection(i);
+        perso1.resurectionNb = 0;
+        i++;
+      }
+      if (perso2.pv <= perso2.pvMax / 2 && perso2.resurectionNb === 1) {
+        perso2.resurection(i);
+        perso2.resurectionNb = 0;
+        i++;
+      }
     } else {
       clearInterval(intervalId);
 
@@ -100,7 +134,3 @@ function startBattle() {
     }
   }, 500);
 }
-
-// quand l'utilisateur a moins de 50% de vie il a le droit de se regenerer
-// une fois de temps en temps la force fait 3 fois plus que le max habituel
-// à noter en vert dans l'historique
